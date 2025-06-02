@@ -1,11 +1,11 @@
 <?php
 
-namespace App\DTO\Input;
+namespace App\Dto\Input;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-class DeliveryCreateDTO
+class CreateDeliveryDto
 {
     #[Assert\NotBlank(message: "Le numéro de suivi est obligatoire")]
     #[Groups(['delivery:write'])]

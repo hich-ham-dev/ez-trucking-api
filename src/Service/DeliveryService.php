@@ -2,8 +2,7 @@
 
 namespace App\Service;
 
-use App\DTO\Input\DeliveryCreateDTO;
-use App\DTO\Output\DeliveryDTO;
+use App\Dto\Input\CreateDeliveryDto;
 use App\Entity\Delivery;
 use App\Repository\DeliveryRepository;
 use App\Repository\DriverRepository;
@@ -31,9 +30,9 @@ class DeliveryService
     }
 
     /**
-     * Crée une nouvelle livraison à partir d'un DTO
+     * Crée une nouvelle livraison à partir d'un Dto
      */
-    public function createDelivery(DeliveryCreateDTO $dto): DeliveryDTO
+    public function createDelivery(CreateDeliveryDto $dto): CreateDeliveryDto
     {
         // Récupération des entités liées
         $driver = $this->driverRepository->find($dto->driverId);
@@ -74,21 +73,21 @@ class DeliveryService
         $this->entityManager->persist($delivery);
         $this->entityManager->flush();
 
-        // Conversion en DTO de sortie
+        // Conversion en Dto de sortie
         return DeliveryDTO::fromEntity($delivery);
     }
 
     /**
      * Récupère une livraison par son ID
      */
-    public function getDeliveryById(int $id): DeliveryDTO
+    public function getDeliveryById(int $id): DeliveryDto
     {
         $delivery = $this->deliveryRepository->find($id);
         if (!$delivery) {
             throw new NotFoundHttpException('Livraison non trouvée');
         }
 
-        return DeliveryDTO::fromEntity($delivery);
+        return DeliveryDto::fromEntity($delivery);
     }
 
     /**

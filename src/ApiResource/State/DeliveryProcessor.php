@@ -4,7 +4,7 @@ namespace App\ApiResource\State;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
-use App\DTO\Input\DeliveryCreateDTO;
+use App\DTO\Input\CreateDeliveryDto;
 use App\Service\DeliveryService;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -24,12 +24,12 @@ class DeliveryProcessor implements ProcessorInterface
     {
         // Pour la création (POST /api/deliveries)
         if ($operation->getName() === 'post') {
-            // Conversion en DTO si nécessaire
-            if (!$data instanceof DeliveryCreateDTO) {
-                $dto = new DeliveryCreateDTO();
+            // Conversion en Dto si nécessaire
+            if (!$data instanceof CreateDeliveryDto) {
+                $dto = new CreateDeliveryDto();
                 $this->serializer->deserialize(
                     $this->serializer->serialize($data, 'json'),
-                    DeliveryCreateDTO::class,
+                    CreateDeliveryDto::class,
                     'json',
                     [AbstractNormalizer::OBJECT_TO_POPULATE => $dto]
                 );
